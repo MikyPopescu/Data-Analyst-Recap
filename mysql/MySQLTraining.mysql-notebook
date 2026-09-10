@@ -1,0 +1,615 @@
+{
+    "type": "MySQLNotebook",
+    "version": "1.0",
+    "caption": "DB Notebook 1",
+    "content": "SELECT * FROM employee_demographics;\nSELECT * FROM employee_salary;\nSELECT * FROM parks_departments;\n\n# INNER JOIN\nSELECT \n    d.employee_id, d.age, s.occupation\nFROM \n    employee_demographics d\nINNER JOIN \n    employee_salary s\nON \n    d.employee_id=s.employee_id;\n\n\n# OUTER JOINS\n-- LEFT  + RIGHT\nSELECT \n    *\nFROM \n    employee_demographics d\nRIGHT JOIN \n    employee_salary s\nON \n    d.employee_id=s.employee_id\n;\n\n# SELF JOIN\nSELECT \n    emp1.employee_id AS emp_santa,\n    emp1.first_name AS first_name_santa,\n    emp1.last_name AS last_name_santa,\n    emp2.employee_id AS emp_name,\n    emp2.first_name AS first_name_emp,\n    emp2.last_name AS last_name_emp\nFROM \n    employee_salary emp1\nJOIN\n    employee_salary emp2\nON \n    emp1.employee_id + 1 = emp2.employee_id;\n\n\n# JOINING MULTIPLE TABLES\nSELECT \n    *\nFROM \n    employee_demographics d\nINNER JOIN \n    employee_salary s\nON \n    d.employee_id = s.employee_id\nINNER JOIN\n    parks_departments p\nON\n    s.dept_id = p.department_id;\n\n# UNIONS\nSELECT first_name, last_name\nFROM employee_demographics\nUNION DISTINCT\nSELECT first_name, last_name\nFROM employee_salary;\n\n-- we can use UNION ALL to show all values\n\nSELECT first_name, last_name\nFROM employee_demographics\nUNION ALL\nSELECT first_name, last_name\nFROM employee_salary;\n\nSELECT first_name, last_name, 'Old Lady' as Label\nFROM employee_demographics\nWHERE age > 40 AND gender = 'Female'\nUNION\nSELECT first_name, last_name, 'Old Man'\nFROM employee_demographics\nWHERE age > 40 AND gender = 'Male'\nUNION\nSELECT first_name, last_name, 'Highly Paid Employee'\nFROM employee_salary\nWHERE salary >= 70000\nORDER BY first_name\n;\n\n\n\n",
+    "options": {
+        "tabSize": 4,
+        "insertSpaces": true,
+        "indentSize": 4,
+        "defaultEOL": "LF",
+        "trimAutoWhitespace": true
+    },
+    "viewState": {
+        "cursorState": [
+            {
+                "inSelectionMode": false,
+                "selectionStart": {
+                    "lineNumber": 85,
+                    "column": 2
+                },
+                "position": {
+                    "lineNumber": 85,
+                    "column": 2
+                }
+            }
+        ],
+        "viewState": {
+            "scrollLeft": 0,
+            "firstPosition": {
+                "lineNumber": 47,
+                "column": 1
+            },
+            "firstPositionDeltaTop": -16
+        },
+        "contributionsState": {
+            "editor.contrib.folding": {},
+            "editor.contrib.wordHighlighter": false
+        }
+    },
+    "contexts": [
+        {
+            "state": {
+                "start": 1,
+                "end": 88,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "85359e25-f2d6-476a-c9af-55cc30a88696"
+                    ]
+                },
+                "currentHeight": 352,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 36
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 36,
+                            "length": 31
+                        },
+                        "contentStart": 37,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 67,
+                            "length": 33
+                        },
+                        "contentStart": 68,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 100,
+                            "length": 166
+                        },
+                        "contentStart": 115,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 266,
+                            "length": 153
+                        },
+                        "contentStart": 300,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 419,
+                            "length": 355
+                        },
+                        "contentStart": 433,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 774,
+                            "length": 219
+                        },
+                        "contentStart": 803,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 993,
+                            "length": 132
+                        },
+                        "contentStart": 1004,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 1125,
+                            "length": 162
+                        },
+                        "contentStart": 1171,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 1287,
+                            "length": 347
+                        },
+                        "contentStart": 1289,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 1634,
+                            "length": 4
+                        },
+                        "contentStart": 1633,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "0df100b1-7731-4f60-d838-a288ae51c683",
+                    "resultId": "85359e25-f2d6-476a-c9af-55cc30a88696",
+                    "rows": [
+                        {
+                            "0": 1,
+                            "1": "Leslie",
+                            "2": "Knope",
+                            "3": 44,
+                            "4": "Female",
+                            "5": "1979-09-25",
+                            "6": 1,
+                            "7": "Leslie",
+                            "8": "Knope",
+                            "9": "Deputy Director of Parks and Recreation",
+                            "10": 75000,
+                            "11": 1,
+                            "12": 1,
+                            "13": "Parks and Recreation"
+                        },
+                        {
+                            "0": 3,
+                            "1": "Tom",
+                            "2": "Haverford",
+                            "3": 36,
+                            "4": "Male",
+                            "5": "1987-03-04",
+                            "6": 3,
+                            "7": "Tom",
+                            "8": "Haverford",
+                            "9": "Entrepreneur",
+                            "10": 50000,
+                            "11": 1,
+                            "12": 1,
+                            "13": "Parks and Recreation"
+                        },
+                        {
+                            "0": 4,
+                            "1": "April",
+                            "2": "Ludgate",
+                            "3": 29,
+                            "4": "Female",
+                            "5": "1994-03-27",
+                            "6": 4,
+                            "7": "April",
+                            "8": "Ludgate",
+                            "9": "Assistant to the Director of Parks and Recreation",
+                            "10": 25000,
+                            "11": 1,
+                            "12": 1,
+                            "13": "Parks and Recreation"
+                        },
+                        {
+                            "0": 5,
+                            "1": "Jerry",
+                            "2": "Gergich",
+                            "3": 61,
+                            "4": "Male",
+                            "5": "1962-08-28",
+                            "6": 5,
+                            "7": "Jerry",
+                            "8": "Gergich",
+                            "9": "Office Manager",
+                            "10": 50000,
+                            "11": 1,
+                            "12": 1,
+                            "13": "Parks and Recreation"
+                        },
+                        {
+                            "0": 6,
+                            "1": "Donna",
+                            "2": "Meagle",
+                            "3": 46,
+                            "4": "Female",
+                            "5": "1977-07-30",
+                            "6": 6,
+                            "7": "Donna",
+                            "8": "Meagle",
+                            "9": "Office Manager",
+                            "10": 60000,
+                            "11": 1,
+                            "12": 1,
+                            "13": "Parks and Recreation"
+                        },
+                        {
+                            "0": 7,
+                            "1": "Ann",
+                            "2": "Perkins",
+                            "3": 35,
+                            "4": "Female",
+                            "5": "1988-12-01",
+                            "6": 7,
+                            "7": "Ann",
+                            "8": "Perkins",
+                            "9": "Nurse",
+                            "10": 55000,
+                            "11": 4,
+                            "12": 4,
+                            "13": "Healthcare"
+                        },
+                        {
+                            "0": 8,
+                            "1": "Chris",
+                            "2": "Traeger",
+                            "3": 43,
+                            "4": "Male",
+                            "5": "1980-11-11",
+                            "6": 8,
+                            "7": "Chris",
+                            "8": "Traeger",
+                            "9": "City Manager",
+                            "10": 90000,
+                            "11": 3,
+                            "12": 3,
+                            "13": "Public Works"
+                        },
+                        {
+                            "0": 9,
+                            "1": "Ben",
+                            "2": "Wyatt",
+                            "3": 38,
+                            "4": "Male",
+                            "5": "1985-07-26",
+                            "6": 9,
+                            "7": "Ben",
+                            "8": "Wyatt",
+                            "9": "State Auditor",
+                            "10": 70000,
+                            "11": 6,
+                            "12": 6,
+                            "13": "Finance"
+                        },
+                        {
+                            "0": 11,
+                            "1": "Mark",
+                            "2": "Brendanawicz",
+                            "3": 40,
+                            "4": "Male",
+                            "5": "1983-06-14",
+                            "6": 11,
+                            "7": "Mark",
+                            "8": "Brendanawicz",
+                            "9": "City Planner",
+                            "10": 57000,
+                            "11": 3,
+                            "12": 3,
+                            "13": "Public Works"
+                        },
+                        {
+                            "0": 12,
+                            "1": "Craig",
+                            "2": "Middlebrooks",
+                            "3": 37,
+                            "4": "Male",
+                            "5": "1986-07-27",
+                            "6": 12,
+                            "7": "Craig",
+                            "8": "Middlebrooks",
+                            "9": "Parks Director",
+                            "10": 65000,
+                            "11": 1,
+                            "12": 1,
+                            "13": "Parks and Recreation"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "employee_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "last_name",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "age",
+                            "field": "3",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "gender",
+                            "field": "4",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "birth_date",
+                            "field": "5",
+                            "dataType": {
+                                "type": 27,
+                                "needsQuotes": true
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "employee_id",
+                            "field": "6",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "7",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "last_name",
+                            "field": "8",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "occupation",
+                            "field": "9",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "salary",
+                            "field": "10",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "dept_id",
+                            "field": "11",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "department_id",
+                            "field": "12",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "department_name",
+                            "field": "13",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 1.416ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "\n\n\n# JOINING MULTIPLE TABLES\nSELECT \n    *\nFROM \n    employee_demographics d\nINNER JOIN \n    employee_salary s\nON \n    d.employee_id = s.employee_id\nINNER JOIN\n    parks_departments p\nON\n    s.dept_id = p.department_id;",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 89,
+                "end": 89,
+                "language": "mysql",
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        }
+    ]
+}
