@@ -252,7 +252,7 @@ SELECT
     sal.salary,
     ROW_NUMBER() OVER (PARTITION BY gender ORDER BY salary DESC) AS row_num,
     RANK() OVER (PARTITION BY gender ORDER BY salary DESC) AS rank_num,
-    DENSE_RANK() OVER (PARTITION BY gender ORDER BY salary DESC) AS dense_rank
+    DENSE_RANK() OVER (PARTITION BY gender ORDER BY salary DESC) AS dense_rank_num
 FROM 
     employee_demographics dem
 JOIN 
