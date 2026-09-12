@@ -407,3 +407,5 @@ BEGIN
     DELETE FROM employee_demographics WHERE age >=60;
 END $$
 DELIMITER ;
+
+SHOW VARIABLES LIKE 'event%';

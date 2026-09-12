@@ -1,0 +1,65 @@
+CREATE DATABASE world_layoffs;
+
+CREATE TABLE `layoffs` (
+  `company` text,
+  `location` text,
+  `industry` text,
+  `total_laid_off` int DEFAULT NULL,
+  `percentage_laid_off` text,
+  `date` text,
+  `stage` text,
+  `country` text,
+  `funds_raised_millions` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+LOAD DATA LOCAL INFILE '/Users/miky/data_analyst/mysql/layoffs.csv'
+INTO TABLE layoffs
+CHARACTER SET utf8mb4
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(company, location, industry, @total_laid_off, @percentage_laid_off, @date, stage, country, @funds_raised_millions)
+SET
+  total_laid_off = NULLIF(@total_laid_off, 'NULL'),
+  percentage_laid_off = NULLIF(@percentage_laid_off, 'NULL'),
+  `date` = STR_TO_DATE(NULLIF(@date, 'NULL'), '%m/%d/%Y'),
+  funds_raised_millions = NULLIF(@funds_raised_millions, 'NULL');
+
+SELECT * FROM layoffs;
+
+-- Data Cleaning
+-- 1. Remove duplicates (if any)
+-- 2. Standardize the data
+-- 3. NULL/Blank Values
+-- 4. Remove any columns
+
+CREATE TABLE layoffs_staging LIKE layoffs;
+SELECT * FROM layoffs_staging;
+INSERT layoffs_staging SELECT * FROM layoffs;
+
+
+SELECT *,
+ ROW_NUMBER() OVER(
+ PARTITION BY company, industry, total_laid_off, percentage_laid_off, `date`) AS row_num
+FROM layoffs_staging;
+
+WITH duplicate_cte AS
+(
+    SELECT *,
+        ROW_NUMBER() OVER(
+            PARTITION BY company, location, industry, total_laid_off, percentage_laid_off, `date`, stage, country, funds_raised_millions) AS row_num
+    FROM layoffs_staging
+)
+SELECT * FROM duplicate_cte WHERE row_num>1;
+
+SELECT * FROM layoffs_staging WHERE company='Casper';
+
+WITH duplicate_cte AS
+(
+    SELECT *,
+        ROW_NUMBER() OVER(
+            PARTITION BY company, location, industry, total_laid_off, percentage_laid_off, `date`, stage, country, funds_raised_millions) AS row_num
+    FROM layoffs_staging
+)
+DELETE FROM duplicate_cte WHERE row_num>1; -- MySQL Error (1288): The target table duplicate_cte of the DELETE is not updatable
