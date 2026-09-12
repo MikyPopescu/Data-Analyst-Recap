@@ -348,3 +348,62 @@ FROM employee_salary
 WHERE salary>=50000;
 
 SELECT * FROM salary_over_50k;
+
+# Stored procedures
+CREATE PROCEDURE large_salaries()
+SELECT *
+FROM employee_salary
+WHERE salary >= 50000;
+
+CALL large_salaries();
+
+DELIMITER $$
+CREATE PROCEDURE large_salaries2()
+BEGIN
+    SELECT *
+    FROM employee_salary
+    WHERE salary >= 50000;
+    SELECT *
+    FROM employee_salary
+    WHERE salary >= 100000;
+END $$
+DELIMITER ;
+
+CALL large_salaries2();
+
+
+DELIMITER $$
+CREATE PROCEDURE large_salaries3(P_employee_id INT)
+BEGIN
+    SELECT salary
+    FROM employee_salary
+    WHERE employee_id = p_employee_id;
+END $$
+DELIMITER ;
+
+CALL large_salaries3(1);
+
+
+# Triggers and events
+DELIMITER $$
+CREATE TRIGGER employee_insert
+    AFTER INSERT ON employee_salary
+    FOR EACH ROW
+BEGIN
+    INSERT INTO employee_demographics (employee_id, first_name, last_name)
+    VALUES (NEW.employee_id, NEW.first_name, NEW.last_name);
+END $$
+DELIMITER ;
+
+INSERT INTO employee_salary (employee_id, first_name,last_name, occupation, salary, dept_id)
+VALUES(13, 'A', 'B','CEO',100000,NULL);
+
+-- Events
+DELIMITER $$
+CREATE EVENT delete_retirees
+ON SCHEDULE EVERY 30 SECOND
+DO
+BEGIN
+    DELETE FROM employee_demographics WHERE age >=60;
+END $$
+DELIMITER ;
